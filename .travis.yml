@@ -1,19 +1,19 @@
 git:
- depth: 5
+  depth: 5
 
 jobs:
- include:
+  include:
   - stage: "Build and Test Java"
     language: java
     jdk: orclejdk11
     before script:
-     - cd sample-application-backend
+      - cd sample-application-backend
   - stage: "Build and Test Nodejs"
     language: node.sj
     node js: "12.20"
     before_script:
-     - cd sample-application-frontend
+      - cd sample-application-frontend
 cache:
- directories:
+  directories:
   - "$HOME/ .m2/repository"
   - "$HOME/ .npm"
