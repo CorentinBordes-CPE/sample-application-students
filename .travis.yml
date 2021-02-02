@@ -41,7 +41,7 @@ jobs:
       - echo "Docker build ..."
       - docker build -t cbordes98/sample-application-frontend
       - echo "Docker login ..."
-      - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u cbordes98 --password-stdin
+      - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u "cbordes98" --password-stdin
       - echo "Docker push ..."
       - docker push cbordes98/sample-application-frontend
 
