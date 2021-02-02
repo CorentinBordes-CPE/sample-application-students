@@ -29,7 +29,7 @@ jobs:
       - cd sample-application-backend
     script:
       - echo "Docker build ..."
-      - docker build -t sample-application-backend
+      - docker build -t $DOCKER_LOGIN_CREDENTIAL/sample-application-backend
       - echo "Docker login ..."
       - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u "$DOCKER_LOGIN_CREDENTIAL" --password-stdin
       - echo "Docker push ..."
@@ -39,7 +39,7 @@ jobs:
       - cd sample-application-frontend
     script:
       - echo "Docker build ..."
-      - docker build -t sample-application-frontend
+      - docker build -t $DOCKER_LOGIN_CREDENTIAL/sample-application-frontend
       - echo "Docker login ..."
       - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u "$DOCKER_LOGIN_CREDENTIAL" --password-stdin
       - echo "Docker push ..."
