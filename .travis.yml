@@ -29,21 +29,21 @@ jobs:
       - cd sample-application-backend
     script:
       - echo "Docker build ..."
-      - docker build -t "$DOCKER_LOGIN_CREDENTIAL"/sample-application-backend
+      - docker build -t cbordes98/sample-application-backend
       - echo "Docker login ..."
-      - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u "$DOCKER_LOGIN_CREDENTIAL" --password-stdin
+      - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u cbordes98 --password-stdin
       - echo "Docker push ..."
-      - docker push "$DOCKER_LOGIN_CREDENTIAL"/sample-application-backend
+      - docker push cbordes98/sample-application-backend
   - stage: "Package"
     before_script:
       - cd sample-application-frontend
     script:
       - echo "Docker build ..."
-      - docker build -t "$DOCKER_LOGIN_CREDENTIAL"/sample-application-frontend
+      - docker build -t cbordes98/sample-application-frontend
       - echo "Docker login ..."
-      - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u "$DOCKER_LOGIN_CREDENTIAL" --password-stdin
+      - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u cbordes98 --password-stdin
       - echo "Docker push ..."
-      - docker push "$DOCKER_LOGIN_CREDENTIAL"/sample-application-frontend
+      - docker push cbordes98/sample-application-frontend
 
 cache:
   directories:
