@@ -1,19 +1,53 @@
 git:
-    depth: 5
+	depth: 5
+
+stages:
+	- "Build and Test"
+	- "Package"
 
 jobs:
-    include:
-        - stage: "Build and Test Java"
-          language: java
-          jdk: oraclejdk11
-          before_script:
-            - cd sample-application-backend
-        - stage: "Build and Test Nodejs"
-          language: node.js
-          node_js: "12.20"
-          before_script:
-            - cd sample-application-frontend
+	include:
+		- stage: "Build and Test"
+		  language: java
+		  jdk: oraclejdk11
+		  before_script:
+			  - cd sample-application-backend
+		  script:
+			  - echo "Maven build"
+			  - echo "Run test coverage and Quality Gate"
+			  - mvn clean verify
+		- stage: "Build and Test"
+		  language: node.js
+		  node_js: "12.20"
+		  before_script:
+			  - cd sample-application-frontend
+		  script:
+			  - echo "NPM install and build"
+			  - npm run
+		- stage: "Package"
+		  before_script:
+			  - cd sample-application-backend
+		  script:
+			  - echo "Docker build ..."
+			  - docker build -t sample-application-backend
+			  - echo "Docker login ..."
+			  - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u "$DOCKER_LOGIN_CREDENTIAL" --password-stdin
+			  - echo "Docker push ..."
+			  - docker push $DOCKER_LOGIN_CREDENTIAL/sample-application-backend
+		-   stage: "Package"
+		before_script:
+			- cd sample-application-frontend
+		script:
+			- echo "Docker build ..."
+			- docker build -t sample-application-frontend
+			- echo "Docker login ..."
+			- echo "$DOCKER_PWD_CREDENTIAL" | docker login -u "$DOCKER_LOGIN_CREDENTIAL" --password-stdin
+			- echo "Docker push ..."
+			- docker push $DOCKER_LOGIN_CREDENTIAL/sample-application-frontend
+
 cache:
-    directories:
-        - "$HOME/.m2/repository"
-        - "$HOME/.npm"
+	directories:
+		- "$HOME/.m2/repository"
+		- "$HOME/.npm"
+	services:
+		- docker
