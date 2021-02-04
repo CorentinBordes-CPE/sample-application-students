@@ -16,7 +16,7 @@ jobs:
     script:
       - echo "Maven build"
       - echo "Run test coverage and Quality Gate"
-      - mvn clean verify org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=CorentinBordes-CPE_sample-application-students
+      #- mvn clean verify org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=CorentinBordes-CPE_sample-application-students
   - stage: "Build and Test"
     language: node.js
     node_js: "12.20"
@@ -65,8 +65,8 @@ cache:
     - "$HOME/.npm"
 services:
     - docker
-addons:
-  sonarcloud:
-    organization: "corentinbordes-cpe"
-    token: "$SONAR_TOKEN"
+#addons:
+#  sonarcloud:
+#    organization: "corentinbordes-cpe"
+#    token: "$SONAR_TOKEN"
 
