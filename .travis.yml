@@ -53,7 +53,7 @@ jobs:
       - apt-get install ansible
     script:
       - echo "Give RSA psw to ansible"
-      - "$ID_RSA_PASSWORD" > password.txt
+      - echo "$ID_RSA_PASSWORD" >> password.txt
       - echo "Decrypt RSA Key"
       - ansible-vault decrypt --vault-password-file password.txt crypted_id_rsa
       - echo "Run playbook"
