@@ -1,0 +1,20 @@
+---
+# tasks file for roles/create_network
+    - name: Add the EPEL Repository
+      yum:
+       name: epel-release
+       state: present
+        
+    - name: Install python-pip
+      yum:
+        name: python-pip
+        state: present
+    
+    - name: Install docker-py
+      pip:
+        name: docker-py
+        state: present
+    
+    - name: Create_Network
+      docker_network:
+        name: network_one

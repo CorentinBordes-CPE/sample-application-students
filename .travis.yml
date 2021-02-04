@@ -4,6 +4,7 @@ git:
 stages:
   - "Build and Test"
   - "Package"
+  - "Deployment"
 
 jobs:
   include:
@@ -44,6 +45,19 @@ jobs:
       - echo "$DOCKER_PWD_CREDENTIAL" | docker login -u "cbordes98" --password-stdin
       - echo "Docker push ..."
       - docker push cbordes98/sample-application-frontend
+  - stage: "Deployment"
+    before_script:
+      - cd ansible
+      - apt-get install -y software-properties-common
+      - apt-add-repository --yes --update ppa:ansible/ansible
+      - apt-get install ansible
+    script:
+      - echo "Give RSA psw to ansible"
+      - "$ID_RSA_PASSWORD" > password.txt
+      - echo "Decrypt RSA Key"
+      - ansible-vault decrypt --vault-password-file password.txt crypted_id_rsa
+      - echo "Run playbook"
+      - ansible-playbook -v -i inventories/setup.yml playbook.yml
 
 cache:
   directories:

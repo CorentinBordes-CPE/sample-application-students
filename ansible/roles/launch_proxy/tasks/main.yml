@@ -1,0 +1,12 @@
+---
+# tasks file for roles/launch_proxy
+
+   
+  - name: Launch Proxy
+    docker_container: 
+      name: frontend
+      image: cbordes98/sample-application-frontend
+      networks:
+        - name: network_one
+      ports:
+        - "80:80"

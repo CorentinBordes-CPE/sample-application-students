@@ -1,0 +1,11 @@
+---
+# tasks file for roles/launch_app
+   
+  - name: Launch App
+    docker_container:
+      name: backend
+      image: cbordes98/sample-application-backend
+      networks:
+        - name: network_one
+      env:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/SchoolOrganisation

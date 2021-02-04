@@ -1,0 +1,15 @@
+---
+# tasks file for roles/launch_database
+  
+  - name: Add database container to the network
+    docker_container: 
+      name: database
+      image: postgres:12.0-alpine
+      pull: true
+      detach : yes
+      networks:
+        - name: network_one
+      env:
+        POSTGRES_PASSWORD: takimapass
+        POSTGRES_USER: takima
+        POSTGRES_DB: SchoolOrganisation
